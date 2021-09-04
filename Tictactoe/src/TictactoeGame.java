@@ -1,12 +1,19 @@
+/*This program creates a 3*3 gameboard and allow two users to placepiece on the console,
+when any user has three pieces in a row in any driection, game will be over. Otherwise the
+game will stop untill every space has been placed piece.
+@Auther: Ning Qin
+@Date: 2021-09-01
+*/
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class TictactoeGame {
-	static int counter = 1;
-	static HashMap<Integer, Coordinate> coordinate = new HashMap<Integer, Coordinate>();
+	static int counter = 1;    //static counter to count the steps 
+	static HashMap<Integer, Coordinate> coordinate = new HashMap<Integer, Coordinate>();  //user HashMap to store coordinate of every position.
 	public static void main(String[] args) {
-		
+		//declare a 2D array to store gameboard and input data
 		String[][] board = {{" ","|"," ","|"," "},
 				          {"-"," ","-"," ","-"},
 				          {" ","|"," ","|"," "},
@@ -15,13 +22,14 @@ public class TictactoeGame {
 		printBoard(board);
 		System.out.println("Please press 1-9 to placepiece on gameboard!");
 		Scanner input = new Scanner(System.in);
+		//do-while loop for users keeping placepiece
 		do{
 			if(counter%2==1) {
 				System.out.println("Please USER1 placepiece on gameboard!");
 				int key = input.nextInt();
 				placePiece(board, "user1", key);
 				printBoard(board);
-				if(check(board,coordinate.get(key).getCol(),coordinate.get(key).getRow())) {
+				if(check(board,coordinate.get(key).getCol(),coordinate.get(key).getRow())) { //check winner when every time a user placepiece
 					System.out.println("USER1 win !");
 					break;
 				}
@@ -43,7 +51,7 @@ public class TictactoeGame {
 			
 		}while(counter<=9);
 	}
-	
+	// this method prints up-to-date gameboard
 	public static void printBoard(String[][] board) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -52,7 +60,7 @@ public class TictactoeGame {
 			System.out.println("");
 		}
 	}
-	
+	//the placePiece method stores coordinate according to keyboard numbers and assign user's symbol to the position of gameboard that user chose.
 	public static void placePiece(String[][] board, String user, int position) {
 		String symbol = "";
 		
@@ -75,13 +83,13 @@ public class TictactoeGame {
 		}
 
 	}
-	
+	//this method check each direction after a user placepieced
 	public static boolean check(String[][] board, int x, int y) {
 		String col = "";
 		String row = "";
 		String leftCross = "";
 		String rightCross = "";
-        boolean flag = false;
+                boolean flag = false;
 		//check column
 		for (int i = 0; i < board.length; i++) {
 			if(i%2==0) {
@@ -118,7 +126,7 @@ public class TictactoeGame {
 	}
 	
 }
-
+//the class Coordinate is used for create Coordinate object that contain x and y coordinate according to keyboard and the 2D array.
 class Coordinate{
 	private int col;
 	private int row;
